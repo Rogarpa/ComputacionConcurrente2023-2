@@ -23,71 +23,6 @@ public class PrimeNumberCalculator implements Runnable{
     }
     
 
-
-    // public double findAverage(int[][] matrix) throws InterruptedException{
-    //     //VERIFICA HILOS
-    //     int nThreads = this.threads;
-    //     if (this.threads > matrix.length) nThreads = matrix.length;
-
-
-
-    //     int rowsCant = (int) Math.floor(matrix.length/nThreads);
-    //     int rowsCantOg = rowsCant;
-        
-        
-    //     System.out.println("Participating threads: "+nThreads);
-
-    //     Thread[] threads = new Thread[nThreads];
-    //     double[] results = new double[nThreads];
-
-        
-    //     for (int i=0; i<nThreads; i++){
-    //         //?            
-    //         if(i==nThreads-1){
-    //             rowsCant = matrix.length - i*rowsCant;
-    //         }
-
-    //         //MATRIZ A REPARTIR
-    //         int[][] submatrix = new int[rowsCant][matrix.length];
-            
-
-    //         //Genera submatriz de acuerdo a vectores que tocan
-    //         for (int j=0; j<rowsCant; j++){
-    //             submatrix[j]=matrix[i*rowsCantOg + j];
-    //         }
-
-    //         /// Start thread and make it get the average of the submatrix ///
-    //         int threadIndex = i;
-    //         Runnable getAverage = () -> {
-    //             results[threadIndex] = Average(submatrix);
-    //         };
-
-
-    //         //INICIA HILOS
-    //         threads[i] = new Thread(getAverage);
-            
-    //         //DATA PRINT
-    //         System.out.println("Thread "+i+" is working with this matrix:");
-    //         printMatrix(submatrix);
-    //         System.out.println();
-            
-    //         //INICIA
-    //         threads[i].start();
-    //         ////////////////////////////////////////////////////////////////
-    //     }
-    //     //JOIN
-    //     for (Thread thread : threads) {
-
-    //         thread.join();
-    //     }
-    //     //AVERAGE OF RESULTS
-    //     double sum = 0;
-    //     for (int i = 0; i < results.length; i++) {
-    //         sum = sum + results[i];
-    //     }
-    //     return sum/results.length;
-    // }
-
     public boolean isPrime(int n) throws InterruptedException{
         //?
         int numPrimo = n;
@@ -107,11 +42,6 @@ public class PrimeNumberCalculator implements Runnable{
             threadsForRanges[i] = new Thread(esPrimoThread);
             threadsForRanges[i].start();
         }
-
-
-
-
-        
 
         for (Thread thread : threadsForRanges) {
             thread.join();
