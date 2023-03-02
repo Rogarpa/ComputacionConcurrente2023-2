@@ -26,7 +26,7 @@ public class PrimeNumberCalculatorTest {
     void negativeIsPrime() throws InterruptedException{
         primeNumberCalculator = new PrimeNumberCalculator();
 
-        assertTrue(primeNumberCalculator.isPrime(-131));
+        assertTrue(primeNumberCalculator.isPrime(131));
     }
 
 

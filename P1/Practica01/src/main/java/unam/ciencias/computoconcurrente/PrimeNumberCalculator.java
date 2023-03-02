@@ -22,10 +22,15 @@ public class PrimeNumberCalculator implements Runnable{
         this.threads = threads > 1 ? threads : 1;
     }
     
-
+        /**
+     * Metodo que calcula si un número es primo concurrentemente, con la cantidad de hilos threads.
+     * @param n número a saber si es primo
+     * @return true si el número es primo, false en cualquier otro caso.
+     */
+    
     public boolean isPrime(int n) throws InterruptedException{
-        //?
-        int numPrimo = n;
+        n = Math.abs(n);        
+        if(n == 0 || n ==1) return false;
 
 
         int cantidadDivisores = (int)((Math.floor(Math.sqrt(n)))+1) - 2;
@@ -35,8 +40,10 @@ public class PrimeNumberCalculator implements Runnable{
         Thread[] threadsForRanges = new Thread[threads];
         
         for(int i = 0; i < threads; i++){
+            int threadIndex = i;
+            int number = n;
             Runnable esPrimoThread = () -> {
-                rangosSonPrimos[i] = isPrimeSequential(n, i);
+                rangosSonPrimos[threadIndex] = isPrimeSequential(number, threadIndex);
             };
 
             threadsForRanges[i] = new Thread(esPrimoThread);
@@ -48,15 +55,25 @@ public class PrimeNumberCalculator implements Runnable{
         }
 
         for(int i = 0; i<threadsForRanges.length; i++){
-            if (rangosSonPrimos[i]) 
-                return true;
+            if (!rangosSonPrimos[i]) 
+                return false;
         }
-        return false;
+        return true;
 
     }
 
+    /**
+     * Metodo que calcula si un número tiene divisores en el rango que cubre su thread
+     * @param n número a saber si tiene divisores
+     * @param threadID ID del 0-threads del hilo que tomara ese rango de divisores
+     * @return false si hay divisores en el rango que le corresponde a ese hilo de el conjunto de divisores de n, true en cualquier otro caso.
+     */
 
     public boolean isPrimeSequential(int n, int threadID){
+        if(n == 0 || n ==1) return false;
+
+
+
         int longitudRango = (int)((Math.floor(Math.sqrt(n)))+1) - 2;
         int limiteInferior = (int) ((Math.floor(threadID*(longitudRango)/ threads))+2);
         int limiteSuperior = (int)((Math.floor((threadID+1)*(longitudRango)/ threads))+2);
