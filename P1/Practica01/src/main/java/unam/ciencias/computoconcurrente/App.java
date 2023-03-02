@@ -37,7 +37,7 @@ public class App {
 
         long iniSec2 = System.currentTimeMillis();
         MatrixUtils secuencial2 = new MatrixUtils();
-        secuencial2.findMinimum(matrix);
+        secuencial2.findAverage(matrix);
         long finSec2 = System.currentTimeMillis();
 
         long tiempo011 = finSec2 - iniSec2;
@@ -46,7 +46,7 @@ public class App {
         
         long iniPar2 = System.currentTimeMillis();
         MatrixUtils paralelo2 = new MatrixUtils(4);
-        paralelo2.findMinimum(matrix);
+        paralelo2.findAverage(matrix);
         long finPar2 = System.currentTimeMillis();
 
         long tiempo022 = finPar2 -iniPar2;
